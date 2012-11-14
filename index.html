@@ -1,13 +1,12 @@
 <script>
 
-// Add image to DOM
-function show_image(src, alt) {
+// Add image to DOM element
+function show_image(src, dom) {
     var img = document.createElement("img");
     img.src = src;
-    img.alt = alt;
 
     // This next line will just add it to the <body> tag
-    document.body.appendChild(img);
+    dom.appendChild(img);
 }
 
 // COnsumes a character and a list of words
@@ -63,20 +62,36 @@ function derived_words(word) {
 }
 
 function print_derived_words(word) {
+    var results = document.getElementById("results");
+    // clear old results
+    results.innerHTML = '';
+
     words = derived_words(word);
     var words_div = document.getElementById("words");
     for (i in words) {
-        show_image("http://i.imgur.com/" + words[i] + "m.jpg");
+        show_image("http://i.imgur.com/" + words[i] + "m.jpg", results);
         continue;
     }
 }
 
 function handle_get_parms() {
-    word = window.location.href.split("?")[1].split("word=")[1];
+    var word;
+    try {
+        word = window.location.href.split("?")[1].split("word=")[1];
+    } catch (err) {
+        word = false;
+        // meh, no params
+    }
     if (word) {
+        document.getElementById("word").value = word;
         print_derived_words(word);
     }
 }
+
+function add_param_location(word) {
+    window.location.href = window.location.href.split("?")[0] + "?word=" + word;
+}
+
 
 </script>
 
@@ -87,8 +102,11 @@ function handle_get_parms() {
 
 <input type="text" id="word" value="boobs">
 <button
-    onclick="print_derived_words(document.getElementById('word').value);">
+    onclick="add_param_location(document.getElementById('word').value);">
     Find similar imgur links
 </button>
+
+<div id=results>
+</div>
 
 </body>
