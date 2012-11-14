@@ -100,11 +100,13 @@ function add_param_location(word) {
         <p>This terrible code is located at <a href="http://github.com/aarongamble/synimg">http://github.com/aarongamble/synimg</a> patches are welcome :)</p>
     </div>
 
-<input type="text" id="word" value="boobs">
-<button
-    onclick="add_param_location(document.getElementById('word').value);">
-    Find similar imgur links
-</button>
+<form action="" method="">
+    <input type="text" id="word" name="word" value="boobs">
+    <button
+        onclick="add_param_location(document.getElementById('word').value);">
+        Find similar imgur links
+    </button>
+</form>
 
 <div id=results>
 </div>
