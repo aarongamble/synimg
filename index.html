@@ -1,0 +1,94 @@
+<script>
+
+// Add image to DOM
+function show_image(src, alt) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.alt = alt;
+
+    // This next line will just add it to the <body> tag
+    document.body.appendChild(img);
+}
+
+// COnsumes a character and a list of words
+// Returns the list of words with c prepended to each word
+function append_to(c, words) {
+    if (words.length == 0) {
+        return [c];
+    }
+    ret = [];
+    for (i in words) {
+        ret = ret.concat(c + words[i]);
+    }
+    return ret;
+}
+
+// Map of char to list of transformation chars
+// Does not include UPPER
+var trans = {
+  'a': ['4'],
+  'e': ['3'],
+  'l': ['1'],
+  'o': ['0'],
+  's': ['5'],
+  't': ['7'],
+  'z': ['2'],
+}
+
+// Returns c and list of similar chars
+function syns(c) {
+    c = c.toLowerCase();
+    var ret = [c, c.toUpperCase()];
+
+    if (trans[c]) {
+        ret = ret.concat(trans[c]);
+    }
+
+    return ret;
+}
+
+// Returns list of words with all possible combinations of simliar characters
+function derived_words(word) {
+    if (word.length == 0) {
+        return [];
+    } else {
+        derived = [];
+        var s = syns(word[0]);
+        for (c in s) {
+            derived = derived.concat(append_to(s[c],
+                                     derived_words(word.slice(1))));
+        }
+        return derived
+    }
+}
+
+function print_derived_words(word) {
+    words = derived_words(word);
+    var words_div = document.getElementById("words");
+    for (i in words) {
+        show_image("http://i.imgur.com/" + words[i] + "m.jpg");
+        continue;
+    }
+}
+
+function handle_get_parms() {
+    word = window.location.href.split("?")[1].split("word=")[1];
+    if (word) {
+        print_derived_words(word);
+    }
+}
+
+</script>
+
+<body onload=handle_get_parms();>
+    <div>
+        <p>This terrible code is located at <a href="http://github.com/aarongamble/synimg">http://github.com/aarongamble/synimg</a> patches are welcome :)</p>
+    </div>
+
+<input type="text" id="word" value="boobs">
+<button
+    onclick="print_derived_words(document.getElementById('word').value);">
+    Find similar imgur links
+</button>
+
+</body>
