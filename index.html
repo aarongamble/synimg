@@ -1,5 +1,7 @@
-<script>
+<!DOCTYPE html>
+<html>
 
+<script type="text/javascript">
 // Add image to DOM element
 function show_image(word, dom) {
     var a = document.createElement("a");
@@ -99,6 +101,22 @@ function add_param_location(word) {
 
 </script>
 
+<head>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36314660-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
 <body onload=handle_get_parms();>
     <div>
         <p>This terrible code is located at <a href="http://github.com/aarongamble/synimg">http://github.com/aarongamble/synimg</a> patches are welcome :)</p>
@@ -114,5 +132,5 @@ function add_param_location(word) {
 
 <div id=results>
 </div>
-
 </body>
+</html>
