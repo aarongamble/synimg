@@ -1,12 +1,17 @@
 <script>
 
 // Add image to DOM element
-function show_image(src, dom) {
+function show_image(word, dom) {
+    var a = document.createElement("a");
+    a.href = "http://imgur.com/" + word;
+
     var img = document.createElement("img");
-    img.src = src;
+    img.src = "http://i.imgur.com/" + word + "m.jpg";
+
+    a.appendChild(img);
 
     // This next line will just add it to the <body> tag
-    dom.appendChild(img);
+    dom.appendChild(a);
 }
 
 // COnsumes a character and a list of words
@@ -69,8 +74,7 @@ function print_derived_words(word) {
     words = derived_words(word);
     var words_div = document.getElementById("words");
     for (i in words) {
-        show_image("http://i.imgur.com/" + words[i] + "m.jpg", results);
-        continue;
+        show_image(words[i], results);
     }
 }
 
